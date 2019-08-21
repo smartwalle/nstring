@@ -1,5 +1,7 @@
 package str4go
 
+import "unsafe"
+
 // SubStr 获取子串
 func SubStr(s string, start int, length int) string {
 	if length == 0 {
@@ -30,4 +32,14 @@ func SubStr(s string, start int, length int) string {
 		end = rLen
 	}
 	return string(sRunes[start:end])
+}
+
+func StrToBytes(s string) []byte {
+	x := (*[2]uintptr)(unsafe.Pointer(&s))
+	h := [3]uintptr{x[0], x[1], x[1]}
+	return *(*[]byte)(unsafe.Pointer(&h))
+}
+
+func BytesToStr(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
 }
