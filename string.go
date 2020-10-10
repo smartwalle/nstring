@@ -1,6 +1,9 @@
 package str4go
 
-import "unsafe"
+import (
+	"reflect"
+	"unsafe"
+)
 
 // SubStr 获取子串
 func SubStr(s string, start int, length int) string {
@@ -34,12 +37,19 @@ func SubStr(s string, start int, length int) string {
 	return string(sRunes[start:end])
 }
 
-func StrToBytes(s string) []byte {
-	x := (*[2]uintptr)(unsafe.Pointer(&s))
-	h := [3]uintptr{x[0], x[1], x[1]}
-	return *(*[]byte)(unsafe.Pointer(&h))
+// StringToBytes 将 string 转换成 byte 数组
+// 注意：不要修改返回的 byte 数组的值
+func StringToBytes(s string) []byte {
+	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	bh := reflect.SliceHeader{
+		Data: sh.Data,
+		Len:  sh.Len,
+		Cap:  sh.Len,
+	}
+	return *(*[]byte)(unsafe.Pointer(&bh))
 }
 
-func BytesToStr(b []byte) string {
+// BytesToString 将 byte 数组转换成 string
+func BytesToString(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
