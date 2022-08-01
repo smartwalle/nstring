@@ -1,12 +1,12 @@
-package str4go
+package nstring
 
 import (
 	"reflect"
 	"unsafe"
 )
 
-// SubStr 获取子串
-func SubStr(s string, start int, length int) string {
+// Sub 获取子串
+func Sub(s string, start int, length int) string {
 	if length == 0 {
 		return ""
 	}
@@ -37,9 +37,9 @@ func SubStr(s string, start int, length int) string {
 	return string(sRunes[start:end])
 }
 
-// StringToBytes 将 string 转换成 byte 数组
+// ToBytes 将 string 转换成 byte 数组
 // 注意：不要修改返回的 byte 数组的值
-func StringToBytes(s string) []byte {
+func ToBytes(s string) []byte {
 	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
 	bh := reflect.SliceHeader{
 		Data: sh.Data,
@@ -49,7 +49,7 @@ func StringToBytes(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&bh))
 }
 
-// BytesToString 将 byte 数组转换成 string
-func BytesToString(b []byte) string {
+// FromBytes 将 byte 数组转换成 string
+func FromBytes(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }

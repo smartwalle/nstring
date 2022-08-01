@@ -1,3 +1,3 @@
-module github.com/smartwalle/str4go
+module github.com/smartwalle/nstring
 
 go 1.12
