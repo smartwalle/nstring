@@ -14,9 +14,6 @@ func Sub(s string, start int, length int) string {
 	if start < 0 {
 		start = 0
 	}
-	if length < -1 {
-		length = -1
-	}
 
 	var sRunes = []rune(s)
 	var rLen = len(sRunes)
