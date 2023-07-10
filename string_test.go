@@ -10,3 +10,9 @@ func BenchmarkSub(b *testing.B) {
 		nstring.Sub("testhahahaha", 2, 5)
 	}
 }
+
+func BenchmarkChunk(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		nstring.Chunk("1234567", 2)
+	}
+}
